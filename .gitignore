@@ -1,0 +1,10 @@
+node_modules
+package-lock.json
+build
+.idea
+mongo-rs0-1/data
+mongo-rs0-2
+mongo-rs0-3
+data
+public/uploads
+public/temp

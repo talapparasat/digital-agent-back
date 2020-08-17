@@ -1,0 +1,68 @@
+version: "3.7"
+services:
+  mongo1:
+    hostname: mongo1
+    container_name: mongo1
+    image: mongo
+    ports:
+      - 27020:27017
+    networks:
+      - rabbit_net
+    restart: always
+    volumes:
+      - ./data/db1:/data/db
+    command: --bind_ip_all --replSet rs0
+
+  mongo2:
+    hostname: mongo2
+    container_name: mongo2
+    image: mongo
+    ports:
+      - 27018:27017
+    networks:
+      - rabbit_net
+    restart: always
+    volumes:
+      - ./data/db2:/data/db
+    depends_on:
+       - mongo1
+    command: --bind_ip_all --replSet rs0
+
+  mongo3:
+    # Host name = Container name
+    hostname: mongo3
+    container_name: mongo3
+    image: mongo
+    ports:
+      - 27019:27017
+    networks:
+      - rabbit_net
+    restart: always
+    volumes:
+      - ./data/db3:/data/db
+    depends_on:
+       - mongo1
+    command: --bind_ip_all --replSet rs0
+
+  digital-back:
+    container_name: digital_back
+    image: node:11
+    working_dir: /usr/app
+    command: npm run build-docker
+    ports:
+      - "6000:6000"
+    environment:
+      NODE_OPTIONS: "--max-old-space-size=1800"
+    networks:
+      - rabbit_net
+    volumes:
+      - .:/usr/app
+      - /usr/app/node_modules
+    depends_on:
+      - mongo2
+      - mongo3
+
+networks:
+  rabbit_net:
+    driver: bridge
+    name: rabbit_net

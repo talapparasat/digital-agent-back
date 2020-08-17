@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "target": "ES5",
+    "module": "commonjs",
+     "outDir": "./build",
+     "rootDir": "./",
+
+    "strict": true,
+     "strictNullChecks": false,
+    "resolveJsonModule": true,
+
+    "esModuleInterop": true,
+
+    "baseUrl": ".",
+    "paths": {
+      "@mw/*": ["./middlewares/*"],
+      "@mw": ["./middlewares/index"],
+      "@db/*": ["./models/*"],
+      "@routes/*": ["./routes/*"],
+      "@routes": ["./routes/index"],
+      "@controllers/*": ["./controllers/*"],
+      "@app": ["./app"],
+      "@socket": ["./socket"],
+      "@firebase": ["./firebase"],
+      "@errors/*": ["./errors/*"],
+      "@errors": ["./errors/index"],
+      "@interfaces/*": ["./interfaces/*"],
+      "@interfaces": ["./interfaces/index"],
+      "@modules/*": ["./modules/*"],
+      "@services": ["./services/index"],
+      "@services/*": ["./services/*"],
+      "@config": ["./config/index"],
+      "@config/*": ["./config/*"]
+    }
+  }
+}
